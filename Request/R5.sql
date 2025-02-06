@@ -32,3 +32,22 @@ FROM employee e
 JOIN company c ON e.company_id = c.id; 
 
 
+
+-- 4.Total HF partner, number of not partner
+SELECT
+COUNT(*) AS total_hf_partners,
+COUNT(*) - COUNT(CASE WHEN is_partner_hf = FALSE THEN 1 END) AS total_non_partner
+FROM health_facility;
+
+
+
+SELECT COUNT(DISTINCT e.id)-
+COUNT(DISTINCT i.employee_id) as total_prospect
+  FROM employee e
+  LEFT JOIN insured_coverage i ON i.employee_id=e.id
+
+
+  SELECT COUNT(DISTINCT c.id)-
+COUNT(DISTINCT i.company_id) as total_prospect_company
+  FROM employee e
+  LEFT JOIN insured_coverage i ON i.employee_id=e.id

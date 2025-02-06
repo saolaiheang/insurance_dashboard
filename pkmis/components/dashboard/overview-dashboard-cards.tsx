@@ -1,14 +1,26 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTotalInsured } from "@/services/dashboard/get-total-insured";
 import { getTotalSumInsured } from "@/services/dashboard/get-total-sum-insured";
+import {getProposetPrimiumAmounts} from "@/services/dashboard/get-total-proposed_premium";
+import { getTotalpolicys } from "@/services/dashboard/get-total-policy";
+import {getTotalPropect} from "@/services/dashboard/get-propect";
+import {getTotalPropectCompany} from "@/services/dashboard/get-prospect_company"
 
 export async function OverviewDashboardCards() {
-  const totalSales = 10;
-  const totalCustomers = 10;
-  const totalSuppliers = 10;
+  const totalSales = await getTotalpolicys();
+  console.log("hhhh",totalSales)
+
+  const totalCustomers = await getTotalPropect();
+  const totalPropectCompany = await getTotalPropectCompany();
+  const totalSuppliers=10
 
   const totalInsured = await getTotalInsured();
   console.log(totalInsured);
+
+  
+
+  const totalPrimiumAmounts = await getProposetPrimiumAmounts();
+  console.log(totalPrimiumAmounts);
 
   const totalSumInsured = await getTotalSumInsured();
   console.log(totalSumInsured);
@@ -32,9 +44,9 @@ export async function OverviewDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalSales.toFixed(2)}</div>
+          <div className="text-2xl font-bold">{totalSales.toString()}</div>
           <p className="text-xs text-muted-foreground">
-            Premium Amount: $10,000
+            Premium Amount: ${totalPrimiumAmounts}
           </p>
         </CardContent>
       </Card>
@@ -81,8 +93,8 @@ export async function OverviewDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalCustomers}</div>
-          <p className="text-xs text-muted-foreground">Number of company: 4</p>
+          <div className="text-2xl font-bold">{totalCustomers.toString()}</div>
+          <p className="text-xs text-muted-foreground">Number of company: {totalPropectCompany.toString()}</p>
         </CardContent>
       </Card>
       <Card className="bg-green-50">

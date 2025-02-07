@@ -5,6 +5,8 @@ import {getProposetPrimiumAmounts} from "@/services/dashboard/get-total-proposed
 import { getTotalpolicys } from "@/services/dashboard/get-total-policy";
 import {getTotalPropect} from "@/services/dashboard/get-propect";
 import {getTotalPropectCompany} from "@/services/dashboard/get-prospect_company"
+import {getTotalHfPartner} from "@/services/dashboard/get-hf-partner"
+import {getTotalNoHfPartner} from "@/services/dashboard/get-no-partner"
 
 export async function OverviewDashboardCards() {
   const totalSales = await getTotalpolicys();
@@ -24,6 +26,10 @@ export async function OverviewDashboardCards() {
 
   const totalSumInsured = await getTotalSumInsured();
   console.log(totalSumInsured);
+  const totalHfPartner = await getTotalHfPartner();
+  console.log("hhh",totalHfPartner);
+  const totalNoHfPartner = await getTotalNoHfPartner();
+  console.log("hhh",totalNoHfPartner);
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -117,8 +123,8 @@ export async function OverviewDashboardCards() {
           </svg>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{totalSuppliers}</div>
-          <p className="text-xs text-muted-foreground">Not Partner: 2</p>
+          <div className="text-2xl font-bold">{totalHfPartner.toString()}</div>
+          <p className="text-xs text-muted-foreground">Not Partner: {totalNoHfPartner.toString()}</p>
         </CardContent>
       </Card>
     </div>
